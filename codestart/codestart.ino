@@ -85,11 +85,12 @@ void action2() {
 }
 
 void action3() {
-    for(pos = 90; pos > 20; pos -=1)
+ /*   for(pos = 90; pos > 20; pos -=1)
   {
     lidservo.write(pos);
     delay(50);
-  }
+  } */
+  sweep(lidservo,90,20,1,50);
   armservo.write(177);
   delay(250);
   armservo.write(50);
@@ -103,11 +104,12 @@ void action4() {
   delay(100);
   armservo.write(177);
   delay(2500);
-for(pos = 177; pos > 90; pos -=1)
+/*for(pos = 177; pos > 90; pos -=1)
   {
     armservo.write(pos);
     delay(50);
-  }
+  } */
+  sweep(armservo,177,90,1,50);
   lidservo.write(90);
   armservo.write(50);
 }
@@ -169,104 +171,51 @@ void action6() {
 }
 
 void action7() {
-    for(pos = 90; pos > 20; pos -=2)
-  {
-    lidservo.write(pos);
-    delay(50);
-  }
-for(pos = 50; pos < 145; pos +=2)
-  {
-    armservo.write(pos);
-    delay(100);
-  }
+
+  sweep(lidservo,90,20,2,50);
+  sweep(armservo,50,145,2,100);
   armservo.write(177);
-for(pos = 177; pos > 50; pos -=2)
-  {
-    armservo.write(pos);
-    delay(100);
-  }
-for(pos = 20; pos < 90; pos +=2)
-  {
-    lidservo.write(pos);
-    delay(50);
-  }
+  sweep(armservo,177,50,2,50);
+  sweep(lidservo,20,90,2,50);
   lidservo.write(90);
 }
 
 void action8() {
-  if (digitalRead(switchpin) == HIGH)
-  {
+/*I removed a possibly duplicate check of the switch position here. If I bonk out, check on putting it back in */	
     delay(1000);
-      for(pos = 90; pos > 20; pos -=2)
-  {
-    lidservo.write(pos);
-    delay(50);
-  }
-      for(pos = 50; pos < 175; pos +=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-  delay(250);
-      for(pos = 175; pos > 125; pos -=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 125; pos < 175; pos +=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 175; pos > 125; pos -=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 125; pos < 175; pos +=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 175; pos > 125; pos -=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 125; pos < 175; pos +=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 175; pos > 125; pos -=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-        for(pos = 125; pos < 175; pos +=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-  delay(250);
-        for(pos = 175; pos > 50; pos -=10)
-  {
-    flag.write(pos);
-    delay(50);
-  }
-   for(pos = 20; pos < 90; pos +=2)
-  {
-    lidservo.write(pos);
-    delay(50);
-  }
-  delay(2000);
-      lidservo.write(50);
-  delay(100);
-  armservo.write(177);
-  delay(250);
-  armservo.write(50);
-  delay(100);
-  lidservo.write(90);
-  }
+	sweep(lidservo,90,20,2,50);
+	sweep(flag,50,175,10,50);
+	delay(250);
+/*need to do the following two sweeps 5 times */
+	sweep(flag,175,125,10,50);
+	sweep(flag,125,175,10,50);
 
+	delay(250);
+	sweep(flag,175,50,10,50);
+	sweep(lidservo,20,90,2,50);
+	delay(2000);
+    lidservo.write(50);
+	delay(100);
+	armservo.write(177);
+	delay(250);
+	armservo.write(50);
+	delay(100);
+	lidservo.write(90);
+}
+
+void sweep(Servo serv, int startpos, int endpos, int increment, int dTime){
+	if (startpos < endpos) {
+		for(pos = startpos; pos < endpos; pos += increment)
+		{
+			myservo.write(pos);
+			delay(dTime);
+		}
+	}
+	else {
+		for(pos = startpos; pos > endpos; pos -= increment)
+		{
+			myservo.write(pos);
+			delay(dTime);
+		}
+	}
 }
