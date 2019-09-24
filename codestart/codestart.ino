@@ -17,13 +17,13 @@ int flagEnd = 175;    //This is when the surrender flag ends the wave
 
 int switchpin = 3;
 int action = 1;
-int pos = 0;
+//int pos = 0;  //This is from the original code. I don't think it needs to be here.
 
 void setup() {
 pinMode(switchpin,INPUT);
 lidservo.attach(1);
 armservo.attach(2);
-flag.attach(4);
+pflag.attach(4);
 
 // Servo Default Starting Position
 
