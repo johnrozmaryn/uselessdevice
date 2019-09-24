@@ -23,7 +23,7 @@ void setup() {
 pinMode(switchpin,INPUT);
 lidservo.attach(1);
 armservo.attach(2);
-pflag.attach(4);
+flag.attach(4);
 
 // Servo Default Starting Position
 
@@ -211,6 +211,7 @@ void action8() {
 }
 
 void sweep(Servo myservo, int startpos, int endpos, int increment, int dTime){
+    int pos;
 	if (startpos < endpos) {
 		for(pos = startpos; pos < endpos; pos += increment)
 		{
