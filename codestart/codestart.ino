@@ -3,10 +3,20 @@ Servo lidservo;
 Servo armservo; 
 Servo flag;
 
+int armOff = 177;  //This is the arm value where the switch is turmed off
+int armFake = 155; //This is the arm value that may be touching the switch, but not turning it off 
+int armIn = 50;    //This is the arm value where the arm is inside the box / neutral
+
+int lidClose = 90;  //This is the lid value where the lid is closed
+int lidNarrow = 50;   //This is the lid value where the lid is opened part way
+int lidOpen = 20;   //This is the lid value where the lid is opened all the way
+
+int flagOff = 50;  //This is when the surrender flag is fully down
+int flagStart = 125;   //This is when the surrender flag starts to wave
+int flagEnd = 175;    //This is when the surrender flag ends the wave
+
 int switchpin = 3;
-
 int action = 1;
-
 int pos = 0;
 
 void setup() {
@@ -17,9 +27,9 @@ flag.attach(4);
 
 // Servo Default Starting Position
 
-armservo.write(50);
-flag.write(50);
-lidservo.write(90);
+armservo.write(armIn);
+flag.write(flagOff);
+lidservo.write(lidClose);
 }
 
 void loop() {
@@ -64,146 +74,143 @@ void loop() {
 //The Following are actions that are chosen chronologically
 
 void action1() {
-  lidservo.write(20);
+  lidservo.write(lidOpen);
   delay(1000);
-  armservo.write(177);
+  armservo.write(armOff);
   delay(500); 
-  armservo.write(50);
+  armservo.write(armIn);
   delay(1000);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(1000);
 }
 
 void action2() {
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(177);
+  armservo.write(armOff);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
 }
 
 void action3() {
- /*   for(pos = 90; pos > 20; pos -=1)
-  {
-    lidservo.write(pos);
-    delay(50);
-  } */
-  sweep(lidservo,90,20,1,50);
-  armservo.write(177);
+  sweep(lidservo,lidClose,lidOpen,1,50);
+  armservo.write(armOff);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
 }
 
 void action4() {
   delay(250);
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(177);
+  armservo.write(armOff);
   delay(2500);
-/*for(pos = 177; pos > 90; pos -=1)
-  {
-    armservo.write(pos);
-    delay(50);
-  } */
-  sweep(armservo,177,90,1,50);
-  lidservo.write(90);
-  armservo.write(50);
+  sweep(armservo,armOff,90,1,50);
+  lidservo.write(lidClose);
+  armservo.write(armIn);
 }
 
 void action5() {
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(500);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(500);
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(500);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(500);
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(500);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(2500);
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(177);
+  armservo.write(armOff);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
 }
 
 void action6() {
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(155);
+  armservo.write(armFake);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(250);
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(155);
+  armservo.write(armFake);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(250);
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(155);
+  armservo.write(armFake);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
   delay(250);  
-  lidservo.write(50);
+  lidservo.write(lidNarrow);
   delay(100);
-  armservo.write(177);
+  armservo.write(armOff);
   delay(250);
-  armservo.write(50);
+  armservo.write(armIn);
   delay(100);
-  lidservo.write(90);
+  lidservo.write(lidClose);
 }
 
 void action7() {
-
-  sweep(lidservo,90,20,2,50);
-  sweep(armservo,50,145,2,100);
-  armservo.write(177);
-  sweep(armservo,177,50,2,50);
-  sweep(lidservo,20,90,2,50);
-  lidservo.write(90);
+  sweep(lidservo,lidClose,lidOpen,2,50);
+  sweep(armservo,armIn,145,2,100);
+  armservo.write(armOff);
+  sweep(armservo,armOff,armIn,2,50);
+  sweep(lidservo,lidOpen,lidClose,2,50);
+  lidservo.write(lidClose);
 }
 
 void action8() {
 /*I removed a possibly duplicate check of the switch position here. If I bonk out, check on putting it back in */	
-    delay(1000);
-	sweep(lidservo,90,20,2,50);
-	sweep(flag,50,175,10,50);
+  delay(1000);
+	sweep(lidservo,lidClose,lidOpen,2,50);
+	sweep(flag,flagOff,flagEnd,10,50);
 	delay(250);
-/*need to do the following two sweeps 5 times */
-	sweep(flag,175,125,10,50);
-	sweep(flag,125,175,10,50);
 
+	sweep(flag,flagEnd,flagStart,10,50);
+	sweep(flag,flagStart,flagEnd,10,50);
+	sweep(flag,flagEnd,flagStart,10,50);
+	sweep(flag,flagStart,flagEnd,10,50);
+	sweep(flag,flagEnd,flagStart,10,50);
+	sweep(flag,flagStart,flagEnd,10,50);
+	sweep(flag,flagEnd,flagStart,10,50);
+	sweep(flag,flagStart,flagEnd,10,50);
+	sweep(flag,flagEnd,flagStart,10,50);
+	sweep(flag,flagStart,flagEnd,10,50);
 	delay(250);
-	sweep(flag,175,50,10,50);
-	sweep(lidservo,20,90,2,50);
+	sweep(flag,flagEnd,flagOff,10,50);
+
+	sweep(lidservo,lidOpen,lidClose,2,50);
 	delay(2000);
-    lidservo.write(50);
+    lidservo.write(lidNarrow);
 	delay(100);
-	armservo.write(177);
+	armservo.write(armOff);
 	delay(250);
-	armservo.write(50);
+	armservo.write(armIn);
 	delay(100);
-	lidservo.write(90);
+	lidservo.write(lidClose);
 }
 
-void sweep(Servo serv, int startpos, int endpos, int increment, int dTime){
+void sweep(Servo myservo, int startpos, int endpos, int increment, int dTime){
 	if (startpos < endpos) {
 		for(pos = startpos; pos < endpos; pos += increment)
 		{
