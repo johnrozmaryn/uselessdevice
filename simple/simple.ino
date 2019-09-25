@@ -3,23 +3,23 @@ Servo lidservo;
 Servo armservo; 
 Servo flag;
 
-int armOff = 160;  //This is the arm value where the switch is turmed off
-int armFake = 140; //This is the arm value that may be touching the switch, but not turning it off 
-int armIn = 35;    //This is the arm value where the arm is inside the box / neutral
+int armOff = 110;  //This is the arm value where the switch is turmed off
+int armFake = 90; //This is the arm value that may be touching the switch, but not turning it off 
+int armIn = 10;    //This is the arm value where the arm is inside the box / neutral
 
-int lidClose = 90;  //This is the lid value where the lid is closed
+int lidClose = 150;  //This is the lid value where the lid is closed
 int lidNarrow = 50;   //This is the lid value where the lid is opened part way
-int lidOpen = 20;   //This is the lid value where the lid is opened all the way
+int lidOpen = 60;  //This is the lid value where the lid is opened all the way
 
 int flagOff = 50;  //This is when the surrender flag is fully down
 int flagStart = 125;   //This is when the surrender flag starts to wave
 int flagEnd = 175;    //This is when the surrender flag ends the wave
 
-int switchpin 7;
+int switchpin = 7;
 
 void setup() {
     pinMode(switchpin,INPUT_PULLUP);
-    lidservo.attach(2);
+    lidservo.attach(3);
     armservo.attach(5);
 
 // Servo Default Starting Position
@@ -31,7 +31,7 @@ void setup() {
 
 void loop() {
 
-  if (digitalRead(armpin) == LOW) {
+  if (digitalRead(switchpin) == LOW) {
     lidservo.write(lidOpen);
     delay(1000);
     armservo.write(armOff);
