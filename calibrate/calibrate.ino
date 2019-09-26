@@ -5,11 +5,12 @@ Servo flag;
 
 int armPos = 90;  
 int lidPos = 90; 
-int flagPos =90;
+int flagPos = 90;
 
+char buf[80]; //serial buffer
 
 void setup() {
-lidservo.attach(2);
+lidservo.attach(3);
 armservo.attach(5);
 flag.attach(4);
 
@@ -18,6 +19,8 @@ flag.attach(4);
 armservo.write(armPos);
 flag.write(flagPos);
 lidservo.write(lidPos);
+
+Serial.begin(9600);
 }
 
 void loop() {
@@ -50,7 +53,7 @@ void moveAndPrint(int cmd) {
         lidPos -= 1;
         break;
     case 42: //Lid -5
-        lidPos -= 5
+        lidPos -= 5;
         break;
     default:
         delay(1);
@@ -59,6 +62,13 @@ void moveAndPrint(int cmd) {
     armservo.write(armPos);
     flag.write(flagPos);
     lidservo.write(lidPos);
+ 
+    
+    Serial.print("ArmPos: ");
+    Serial.println(armPos);
+    
+    Serial.print("LidPos: ");
+    Serial.println(lidPos);
  
  }
   
@@ -84,28 +94,6 @@ int readline(int readch, char *buffer, int len) {
   return 0;
 } 
        
-    
-    
-
-// Action Selection starting with 1
-
-
-  if (digitalRead(armpin) == HIGH)
-	armservo.write(armOff);
-  else
-	armservo.write(armIn);
- 
-
-  if (digitalRead(lidpin) == HIGH)
-	lidservo.write(lidOpen);
-  else 
-	lidservo.write(lidClose);
-
-
-delay(100);
-
-}
-
 
 
 
