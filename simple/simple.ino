@@ -3,11 +3,11 @@ Servo lidservo;
 Servo armservo; 
 Servo flag;
 
-int armOff = 110;  //This is the arm value where the switch is turmed off
-int armFake = 90; //This is the arm value that may be touching the switch, but not turning it off 
-int armIn = 10;    //This is the arm value where the arm is inside the box / neutral
+int armOff = 160;  //This is the arm value where the switch is turmed off
+int armFake = 120; //This is the arm value that may be touching the switch, but not turning it off 
+int armIn = 20;    //This is the arm value where the arm is inside the box / neutral
 
-int lidClose = 150;  //This is the lid value where the lid is closed
+int lidClose = 130;  //This is the lid value where the lid is closed
 int lidNarrow = 50;   //This is the lid value where the lid is opened part way
 int lidOpen = 60;  //This is the lid value where the lid is opened all the way
 

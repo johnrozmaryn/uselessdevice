@@ -3,32 +3,32 @@ Servo lidservo;
 Servo armservo; 
 Servo flag;
 
-int armOff = 177;  //This is the arm value where the switch is turmed off
-int armFake = 155; //This is the arm value that may be touching the switch, but not turning it off 
-int armIn = 50;    //This is the arm value where the arm is inside the box / neutral
+int armOff = 160;  //This is the arm value where the switch is turmed off
+int armFake = 130; //This is the arm value that may be touching the switch, but not turning it off 
+int armIn = 20;    //This is the arm value where the arm is inside the box / neutral
 
-int lidClose = 90;  //This is the lid value where the lid is closed
-int lidNarrow = 50;   //This is the lid value where the lid is opened part way
-int lidOpen = 20;   //This is the lid value where the lid is opened all the way
+int lidClose = 130;  //This is the lid value where the lid is closed
+int lidNarrow = 60;   //This is the lid value where the lid is opened part way
+int lidOpen = 60;   //This is the lid value where the lid is opened all the way
 
 int flagOff = 50;  //This is when the surrender flag is fully down
 int flagStart = 125;   //This is when the surrender flag starts to wave
 int flagEnd = 175;    //This is when the surrender flag ends the wave
 
-int switchpin = 3;
+int switchpin = 7;
 int action = 1;
 //int pos = 0;  //This is from the original code. I don't think it needs to be here.
 
 void setup() {
-pinMode(switchpin,INPUT);
-lidservo.attach(1);
-armservo.attach(2);
-flag.attach(4);
+pinMode(switchpin,INPUT_PULLUP);
+lidservo.attach(3);
+armservo.attach(5);
+//flag.attach(4);
 
 // Servo Default Starting Position
 
 armservo.write(armIn);
-flag.write(flagOff);
+//flag.write(flagOff);
 lidservo.write(lidClose);
 }
 
@@ -36,7 +36,7 @@ void loop() {
 
 // Action Selection starting with 1
 
-  if (digitalRead(switchpin) == HIGH)
+  if (digitalRead(switchpin) == LOW)
   {
   if (action > 8) {
     action = 1;
@@ -63,7 +63,7 @@ void loop() {
     action7();
     }
     else if (action == 8) {
-    action8();
+    action7();
     }
 
     action += 1;
@@ -88,7 +88,7 @@ void action2() {
   lidservo.write(lidNarrow);
   delay(100);
   armservo.write(armOff);
-  delay(250);
+  delay(500);
   armservo.write(armIn);
   delay(100);
   lidservo.write(lidClose);
@@ -109,7 +109,7 @@ void action4() {
   delay(100);
   armservo.write(armOff);
   delay(2500);
-  sweep(armservo,armOff,90,1,50);
+  sweep(armservo,armOff,armIn,1,50);
   lidservo.write(lidClose);
   armservo.write(armIn);
 }
@@ -130,7 +130,7 @@ void action5() {
   lidservo.write(lidNarrow);
   delay(100);
   armservo.write(armOff);
-  delay(250);
+  delay(500);
   armservo.write(armIn);
   delay(100);
   lidservo.write(lidClose);
@@ -164,7 +164,7 @@ void action6() {
   lidservo.write(lidNarrow);
   delay(100);
   armservo.write(armOff);
-  delay(250);
+  delay(500);
   armservo.write(armIn);
   delay(100);
   lidservo.write(lidClose);
@@ -172,8 +172,9 @@ void action6() {
 
 void action7() {
   sweep(lidservo,lidClose,lidOpen,2,50);
-  sweep(armservo,armIn,145,2,100);
+  sweep(armservo,armIn,armFake,2,100);
   armservo.write(armOff);
+  delay(500);
   sweep(armservo,armOff,armIn,2,50);
   sweep(lidservo,lidOpen,lidClose,2,50);
   lidservo.write(lidClose);
