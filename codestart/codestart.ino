@@ -12,7 +12,7 @@ int lidNarrow = 60;   //This is the lid value where the lid is opened part way
 int lidOpen = 60;   //This is the lid value where the lid is opened all the way
 
 int flagOff = 50;  //This is when the surrender flag is fully down
-int flagStart = 125;   //This is when the surrender flag starts to wave
+int flagStart = 140;   //This is when the surrender flag starts to wave
 int flagEnd = 175;    //This is when the surrender flag ends the wave
 
 int switchpin = 7;
@@ -23,13 +23,22 @@ void setup() {
 pinMode(switchpin,INPUT_PULLUP);
 lidservo.attach(3);
 armservo.attach(5);
-//flag.attach(4);
+flag.attach(12);
 
 // Servo Default Starting Position
 
 armservo.write(armIn);
-//flag.write(flagOff);
+flag.write(flagOff);
 lidservo.write(lidClose);
+
+delay(1000);
+flag.write(flagStart);
+delay(1000);
+flag.write(flagEnd);
+delay(1000);
+flag.write(flagOff);
+
+
 }
 
 void loop() {
@@ -63,7 +72,7 @@ void loop() {
     action7();
     }
     else if (action == 8) {
-    action7();
+    action8();
     }
 
     action += 1;
