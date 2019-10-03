@@ -11,7 +11,7 @@ int lidClose = 130;  //This is the lid value where the lid is closed
 int lidNarrow = 60;   //This is the lid value where the lid is opened part way
 int lidOpen = 60;   //This is the lid value where the lid is opened all the way
 
-int flagOff = 50;  //This is when the surrender flag is fully down
+int flagOff = 0;  //This is when the surrender flag is fully down
 int flagStart = 140;   //This is when the surrender flag starts to wave
 int flagEnd = 175;    //This is when the surrender flag ends the wave
 
@@ -31,13 +31,14 @@ armservo.write(armIn);
 flag.write(flagOff);
 lidservo.write(lidClose);
 
+/* This is just for testing the flag parameters
 delay(1000);
 flag.write(flagStart);
 delay(1000);
 flag.write(flagEnd);
 delay(1000);
 flag.write(flagOff);
-
+*/
 
 }
 
