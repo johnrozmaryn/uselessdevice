@@ -12,7 +12,7 @@ char buf[80]; //serial buffer
 void setup() {
 lidservo.attach(3);
 armservo.attach(5);
-flag.attach(4);
+flag.attach(12);
 
 // Servo Default Starting Position
 
@@ -55,6 +55,18 @@ void moveAndPrint(int cmd) {
     case 42: //Lid -5
         lidPos -= 5;
         break;
+    case 51: //Flag +1
+        flagPos += 1;
+        break;
+    case 52: //flag +5
+        flagPos += 5;
+        break;
+    case 61: //flag -1
+        flagPos -= 1;
+        break;
+    case 62: //flag -5
+        flagPos -= 5;
+        break;
     default:
         delay(1);
         break;
@@ -69,6 +81,9 @@ void moveAndPrint(int cmd) {
     
     Serial.print("LidPos: ");
     Serial.println(lidPos);
+    
+    Serial.print("FlagPos: ");
+    Serial.println(flagPos);
  
  }
   

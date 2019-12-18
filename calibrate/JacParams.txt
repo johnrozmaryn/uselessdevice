@@ -1,0 +1,13 @@
+flag off  50
+flag start 130
+flag end 150
+
+
+arm in 20
+arm fake 103
+arm off 113
+
+lid close 60
+lid open 155
+lid narrow 130
+
